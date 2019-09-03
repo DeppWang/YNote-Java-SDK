@@ -1,6 +1,6 @@
 /**
- * @(#)YNoteHttpUtils.java, 2012-3-2. 
- * 
+ * @(#)YNoteHttpUtils.java, 2012-3-2.
+ * <p>
  * Copyright 2012 Yodao, Inc. All rights reserved.
  * YODAO PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
@@ -65,7 +65,7 @@ public class YNoteHttpUtils {
      * @throws {@link YNoteException}
      */
     public static HttpResponse doGet(String url, Map<String, String> parameters,
-            OAuthAccessor accessor) throws IOException, YNoteException {
+                                     OAuthAccessor accessor) throws IOException, YNoteException {
         // add ynote parameters to the url
         OAuth.addParameters(url, parameters == null ? null : parameters.entrySet());
         HttpGet get = new HttpGet(url);
@@ -96,7 +96,7 @@ public class YNoteHttpUtils {
      * @throws YNoteException
      */
     public static HttpResponse doPostByUrlEncoded(String url,
-            Map<String, String> formParams, OAuthAccessor accessor)
+                                                  Map<String, String> formParams, OAuthAccessor accessor)
             throws IOException, YNoteException {
         HttpPost post = new HttpPost(url);
         // for url encoded post, sign all the parameters, including oauth
@@ -106,7 +106,7 @@ public class YNoteHttpUtils {
         if (formParams != null) {
             // encode our ynote parameters
             List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-            for(Entry<String, String> entry : formParams.entrySet()) {
+            for (Entry<String, String> entry : formParams.entrySet()) {
                 pairs.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
             }
             UrlEncodedFormEntity entity = new UrlEncodedFormEntity(pairs, YNoteConstants.ENCODING);
@@ -133,7 +133,7 @@ public class YNoteHttpUtils {
      * @throws YNoteException
      */
     public static HttpResponse doPostByMultipart(String url,
-            Map<String, Object> formParams, OAuthAccessor accessor)
+                                                 Map<String, Object> formParams, OAuthAccessor accessor)
             throws IOException, YNoteException {
         HttpPost post = new HttpPost(url);
         // for multipart encoded post, only sign with the oauth parameters
@@ -143,13 +143,13 @@ public class YNoteHttpUtils {
         if (formParams != null) {
             // encode our ynote parameters
             MultipartEntity entity =
-                new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+                    new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
             for (Entry<String, Object> parameter : formParams.entrySet()) {
                 if (parameter.getValue() instanceof File) {
                     // deal with file particular
                     entity.addPart(parameter.getKey(),
-                            new FileBody((File)parameter.getValue()));
-                } else if (parameter.getValue() != null){
+                            new FileBody((File) parameter.getValue()));
+                } else if (parameter.getValue() != null) {
                     entity.addPart(parameter.getKey(), new StringBody(
                             parameter.getValue().toString(),
                             Charset.forName(YNoteConstants.ENCODING)));
@@ -177,7 +177,7 @@ public class YNoteHttpUtils {
      * @throws IOException
      */
     private static Header getAuthorizationHeader(String url, String method,
-            Map<String, String> parameters, OAuthAccessor accessor)
+                                                 Map<String, String> parameters, OAuthAccessor accessor)
             throws IOException {
         try {
             OAuthMessage message = accessor.newRequestMessage(method,

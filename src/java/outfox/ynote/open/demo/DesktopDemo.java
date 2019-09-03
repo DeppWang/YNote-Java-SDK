@@ -1,6 +1,6 @@
 /**
- * @(#)DesktopDemo.java, 2012-2-27. 
- * 
+ * @(#)DesktopDemo.java, 2012-2-27.
+ * <p>
  * Copyright 2012 Yodao, Inc. All rights reserved.
  * YODAO PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
@@ -41,18 +41,18 @@ public class DesktopDemo {
 
     // YNote online environment
     private static final OAuthServiceProvider SERVICE_PROVIDER =
-        new OAuthServiceProvider(YNoteConstants.REQUEST_TOKEN_URL,
-                YNoteConstants.USER_AUTHORIZATION_URL,
-                YNoteConstants.ACCESS_TOKEN_URL);
+            new OAuthServiceProvider(YNoteConstants.REQUEST_TOKEN_URL,
+                    YNoteConstants.USER_AUTHORIZATION_URL,
+                    YNoteConstants.ACCESS_TOKEN_URL);
 
     // YNote sandbox environment
     private static final OAuthServiceProvider SANDBOX_SERVICE_PROVIDER =
-        new OAuthServiceProvider(YNoteConstants.SANDBOX_REQUEST_TOKEN_URL,
-                YNoteConstants.SANDBOX_USER_AUTHORIZATION_URL,
-                YNoteConstants.SANDBOX_ACCESS_TOKEN_URL);
+            new OAuthServiceProvider(YNoteConstants.SANDBOX_REQUEST_TOKEN_URL,
+                    YNoteConstants.SANDBOX_USER_AUTHORIZATION_URL,
+                    YNoteConstants.SANDBOX_ACCESS_TOKEN_URL);
 
-    private static final String CONSUMER_KEY = "your key";
-    private static final String CONSUMER_SECRET = "your secret";
+    private static final String CONSUMER_KEY = "d27ad4d7863fac1dc7a415e613483392";
+    private static final String CONSUMER_SECRET = "4d0bd6cc6889f87145bc3b61c48a6505";
     // sandbox consumer
     private static final OAuthConsumer CONSUMER = new OAuthConsumer(null,
             CONSUMER_KEY, CONSUMER_SECRET, SANDBOX_SERVICE_PROVIDER);
@@ -60,7 +60,7 @@ public class DesktopDemo {
     private static YNoteClient client = new YNoteClient(CONSUMER);
 
     public static void main(String[] args) throws Exception {
-        
+
         // load the save the access token if exists
         File file = new File("conf", "access_token");
         if (file.exists()) {
@@ -138,7 +138,7 @@ public class DesktopDemo {
     /**
      * Do OAuth authorization
      *
-     * @param <T> return type of the callback method
+     * @param <T>      return type of the callback method
      * @param callback method to be called when authorization is finished
      * @return
      * @throws Exception

@@ -1,6 +1,6 @@
 /**
- * @(#)YNoteClient.java, 2012-2-27. 
- * 
+ * @(#)YNoteClient.java, 2012-2-27.
+ * <p>
  * Copyright 2012 Yodao, Inc. All rights reserved.
  * YODAO PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
@@ -69,8 +69,8 @@ public class YNoteClient {
      * consumer key and consumer secret.
      *
      * @return the user authorization URL
-     * @throws YNoteException 
-     * @throws IOException 
+     * @throws YNoteException
+     * @throws IOException
      */
     public String grantRequestToken(String callbackURL) throws IOException,
             YNoteException {
@@ -112,8 +112,8 @@ public class YNoteClient {
      * method which is notified after user authorized.
      *
      * @param verifier oauth verifier
-     * @throws YNoteException 
-     * @throws IOException 
+     * @throws YNoteException
+     * @throws IOException
      */
     public void grantAccessToken(String verifier) throws IOException, YNoteException {
         lock.writeLock().lock();
@@ -160,7 +160,7 @@ public class YNoteClient {
      */
     private String getBaseURL() {
         String[] parts =
-            accessor.consumer.serviceProvider.accessTokenURL.split("oauth");
+                accessor.consumer.serviceProvider.accessTokenURL.split("oauth");
         return parts[0] + "yws/open/";
     }
 
@@ -193,10 +193,10 @@ public class YNoteClient {
      * <p>This method calls http://note.youdao.com/yws/open/notebook/all.json
      *
      * @return notebooks of this authenticate user
-     * @throws URISyntaxException 
-     * @throws IOException 
-     * @throws OAuthException 
-     * @throws YNoteException 
+     * @throws URISyntaxException
+     * @throws IOException
+     * @throws OAuthException
+     * @throws YNoteException
      */
     public List<Notebook> getAllNotebooks() throws IOException, YNoteException {
         lock.readLock().lock();
@@ -224,28 +224,28 @@ public class YNoteClient {
      *
      * @param notebookPath
      * @return notes path under this notebook
-     * @throws URISyntaxException 
-     * @throws IOException 
-     * @throws OAuthException 
-     * @throws YNoteException 
+     * @throws URISyntaxException
+     * @throws IOException
+     * @throws OAuthException
+     * @throws YNoteException
      */
     public List<String> listNotes(String notebookPath) throws IOException,
             YNoteException {
         lock.readLock().lock();
         try {
-        String url = getBaseURL() + "notebook/list.json";
-        Map<String, String> parameters = new HashMap<String, String>();
-        parameters.put(YNoteConstants.NOTEBOOK_PARAM, notebookPath);
-        HttpResponse response = YNoteHttpUtils.doPostByUrlEncoded(url,
-                parameters, accessor);
-        String content = YNoteHttpUtils.getResponseContent(
-                response.getEntity().getContent());
-        JSONArray array = JSONArray.fromObject(content);
-        List<String> notes = new ArrayList<String>();
-        for (int i = 0; i < array.size(); i++) {
-            notes.add(array.getString(i));
-        }
-        return notes;
+            String url = getBaseURL() + "notebook/list.json";
+            Map<String, String> parameters = new HashMap<String, String>();
+            parameters.put(YNoteConstants.NOTEBOOK_PARAM, notebookPath);
+            HttpResponse response = YNoteHttpUtils.doPostByUrlEncoded(url,
+                    parameters, accessor);
+            String content = YNoteHttpUtils.getResponseContent(
+                    response.getEntity().getContent());
+            JSONArray array = JSONArray.fromObject(content);
+            List<String> notes = new ArrayList<String>();
+            for (int i = 0; i < array.size(); i++) {
+                notes.add(array.getString(i));
+            }
+            return notes;
         } finally {
             lock.readLock().unlock();
         }
@@ -257,10 +257,10 @@ public class YNoteClient {
      *
      * @param name the notebook name
      * @return path the newly created notebook
-     * @throws URISyntaxException 
-     * @throws IOException 
-     * @throws OAuthException 
-     * @throws YNoteException 
+     * @throws URISyntaxException
+     * @throws IOException
+     * @throws OAuthException
+     * @throws YNoteException
      */
     public String createNotebook(String name) throws IOException,
             YNoteException {
@@ -286,10 +286,10 @@ public class YNoteClient {
      * <p>This method calls http://note.youdao.com/yws/open/notebook/delete.json
      *
      * @param notebookPath notebook path
-     * @throws URISyntaxException 
-     * @throws IOException 
-     * @throws OAuthException 
-     * @throws YNoteException 
+     * @throws URISyntaxException
+     * @throws IOException
+     * @throws OAuthException
+     * @throws YNoteException
      */
     public void deletedNotebook(String notebookPath) throws IOException,
             YNoteException {
@@ -316,10 +316,10 @@ public class YNoteClient {
      * <p>This method calls http://note.youdao.com/yws/open/note/get.json
      *
      * @param notePath
-     * @throws URISyntaxException 
-     * @throws IOException 
-     * @throws OAuthException 
-     * @throws YNoteException 
+     * @throws URISyntaxException
+     * @throws IOException
+     * @throws OAuthException
+     * @throws YNoteException
      */
     public Note getNote(String notePath) throws IOException, YNoteException {
         lock.readLock().lock();
@@ -346,10 +346,10 @@ public class YNoteClient {
      * @param notebookPath under which the note would be created
      * @param note note to be created, note path should be left as null
      * @return the newly create note with note path
-     * @throws URISyntaxException 
-     * @throws IOException 
-     * @throws OAuthException 
-     * @throws YNoteException 
+     * @throws URISyntaxException
+     * @throws IOException
+     * @throws OAuthException
+     * @throws YNoteException
      */
     public Note createNote(String notebookPath, Note note) throws IOException,
             YNoteException {
@@ -382,10 +382,10 @@ public class YNoteClient {
      * <p>This method calls http://note.youdao.com/yws/open/note/update.json
      *
      * @param note udpated note
-     * @throws URISyntaxException 
-     * @throws IOException 
-     * @throws OAuthException 
-     * @throws YNoteException 
+     * @throws URISyntaxException
+     * @throws IOException
+     * @throws OAuthException
+     * @throws YNoteException
      */
     public void updateNote(Note note) throws IOException, YNoteException {
         lock.readLock().lock();
@@ -414,9 +414,9 @@ public class YNoteClient {
      * @param notePath note to be moved
      * @param destNotebookPath destination notebook path
      * @return the new path of the note
-     * @throws URISyntaxException 
-     * @throws IOException 
-     * @throws OAuthException 
+     * @throws URISyntaxException
+     * @throws IOException
+     * @throws OAuthException
      */
     public String moveNote(String notePath, String destNotebookPath)
             throws IOException, YNoteException {
@@ -442,9 +442,9 @@ public class YNoteClient {
      * <p>This method calls http://note.youdao.com/yws/open/note/delete.json
      *
      * @param notePath path of the note to be deleted
-     * @throws URISyntaxException 
-     * @throws IOException 
-     * @throws OAuthException 
+     * @throws URISyntaxException
+     * @throws IOException
+     * @throws OAuthException
      */
     public void deleteNote(String notePath) throws IOException, YNoteException {
         lock.readLock().lock();
@@ -468,9 +468,9 @@ public class YNoteClient {
     /**
      * Upload a resource
      *
-     * @throws URISyntaxException 
-     * @throws IOException 
-     * @throws OAuthException 
+     * @throws URISyntaxException
+     * @throws IOException
+     * @throws OAuthException
      */
     public Resource uploadResource(File resource) throws IOException,
             YNoteException {
